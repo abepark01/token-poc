@@ -28,11 +28,7 @@ const breadcrumbs = {
 
 export default function Home() {
   return (
-    <LayoutWithSidebar
-      breadcrumbs={breadcrumbs}
-      className="py-10"
-      title="Fine-grained Token"
-    >
+    <LayoutWithSidebar breadcrumbs={breadcrumbs} title="Fine-grained Token">
       <div className="w-full sm:w-4/5">
         <Panel className="">
           <PanelSection>

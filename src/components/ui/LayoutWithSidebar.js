@@ -6,18 +6,7 @@ import Container from "@/components/ui/Container";
 import classNames from "classnames";
 import Sidebar from "./Sidebar";
 
-export default function LayoutWithSidebar({
-  top,
-  bottom,
-  title,
-  header,
-  sidebar,
-  children,
-  breadcrumbs,
-  footer,
-  className,
-  containerClassName,
-}) {
+export default function LayoutWithSidebar({ title, children, breadcrumbs }) {
   return (
     <>
       <Head>
