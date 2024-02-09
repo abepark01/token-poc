@@ -20,7 +20,7 @@ const breadcrumbs = {
       href: "/tokens",
     },
     {
-      name: "Token Details",
+      name: "873a0724-e9d1-48ec-89d9-4266aab9dc63",
       current: true,
     },
   ],
