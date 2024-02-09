@@ -31,14 +31,14 @@ export default function Home() {
     <LayoutWithSidebar
       breadcrumbs={breadcrumbs}
       className="py-10"
-      title="Fine Grained Token"
+      title="Fine-grained Token"
     >
       <div className="w-full sm:w-4/5">
         <Panel className="">
           <PanelSection>
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <h3>Fine Grained Token</h3>
+                <h3>Fine-grained Token</h3>
                 <Badge color="green">Valid</Badge>
               </div>
               <DropdownMenu useIcon>
