@@ -16,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 const breadcrumbs = {
   pages: [
     {
-      name: "Fine Grained Tokens",
+      name: "Fine-grained Tokens",
       href: "/tokens",
     },
     {
