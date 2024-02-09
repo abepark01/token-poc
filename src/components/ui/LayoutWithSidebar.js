@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Container from "@/components/ui/Container";
 import classNames from "classnames";
+import Sidebar from "./Sidebar";
 
 export default function LayoutWithSidebar({
   top,
@@ -25,22 +26,17 @@ export default function LayoutWithSidebar({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={classNames(className)}>
-        {top && top()}
-        <Container className={classNames(containerClassName)}>
-          {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-          {header && header()}
-          {sidebar && (
-            <div className="lg:grid lg:grid-cols-5 lg:gap-6">
-              <div className="lg:col-span-1">{sidebar()}</div>
-              <div className="lg:col-span-4">{children}</div>
+      <div>
+        <Sidebar />
+        <div className="lg:pl-72">
+          <main className="py-10">
+            <div className="px-4 sm:px-6 lg:px-12">
+              {breadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
+              {children}
             </div>
-          )}
-          {!sidebar && children}
-          {footer && footer()}
-        </Container>
-        {bottom && bottom()}
-      </main>
+          </main>
+        </div>
+      </div>
     </>
   );
 }

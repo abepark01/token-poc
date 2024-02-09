@@ -1,166 +1,91 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import { Disclosure } from "@headlessui/react";
+/*
+  This example requires some changes to your config:
 
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+*/
+import { Fragment, useState } from "react";
+import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
+  Bars3Icon,
+  BellIcon,
+  CalendarIcon,
   ChartPieIcon,
+  Cog6ToothIcon,
+  DocumentDuplicateIcon,
+  FolderIcon,
   HomeIcon,
-  HeartIcon,
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronRightIcon,
-  ChevronUpIcon,
+  UsersIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import Tooltip from "components/ui/Tooltip";
-import Link from "next/link";
-import { useGroups } from "hooks/unifiedview/useReports";
+import {
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/20/solid";
 
-const favorites = [
+const teams = [
   {
-    name: "Report #1",
-    href: "/unifiedview/reports/1",
-    icon: ChartPieIcon,
-    current: false,
+    id: 1,
+    name: "Fine-grained Tokens ",
+    href: "#",
+    initial: "H",
+    current: true,
   },
   {
-    name: "Report #2",
-    href: "/unifiedview/reports/2",
-    icon: ChartPieIcon,
-    current: false,
-  },
-  {
-    name: "Report #3",
-    href: "/unifiedview/reports/3",
-    icon: ChartPieIcon,
-    current: false,
-  },
-  {
-    name: "Report #4",
-    href: "/unifiedvew/reports/4",
-    icon: ChartPieIcon,
-    current: false,
-  },
-  {
-    name: "Report #5",
-    href: "/unifiedview/reportes/5",
-    icon: ChartPieIcon,
+    id: 2,
+    name: "Coarse-grained Tokens",
+    href: "#",
+    initial: "T",
     current: false,
   },
 ];
+const userNavigation = [
+  { name: "Your profile", href: "#" },
+  { name: "Sign out", href: "#" },
+];
 
-const containerClassName =
-  "fixed inset-y-0 lg:z-50 lg:flex lg:flex-col overflow-y-auto";
-export default function Sidebar({ onToggle, activeTab, groupId }) {
-  const { data } = useGroups();
-  const mappedGroupId = groupId ? parseInt(groupId, 10) : null;
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
-  const mappedGroups = (data || []).map((item) => {
-    return {
-      ...item,
-      current: item.id === mappedGroupId,
-      children: (item.children || []).map((subItem) => {
-        return {
-          ...subItem,
-          current: subItem.id === mappedGroupId && activeTab === "groups",
-        };
-      }),
-    };
-  });
-
-  const navigation = [
-    {
-      name: "Favorites",
-      href: "/unifiedview/favorites",
-      icon: HeartIcon,
-      current: activeTab === "favorites",
-    },
-    {
-      name: "All Reports",
-      href: "/unifiedview/reports",
-      icon: ChartPieIcon,
-      current: activeTab === "all-reports",
-    },
-    {
-      name: "My Reports",
-      href: "/unifiedview/my-reports",
-      icon: ChartPieIcon,
-      current: activeTab === "my-reports",
-    },
-    {
-      name: "Explore",
-      href: "/unifiedview/explore",
-      icon: HomeIcon,
-      current: activeTab === "explore",
-    },
-  ];
-
-  const [hideNavText, setHideNavText] = useState(false);
-  function handleHideNavText() {
-    setHideNavText(!hideNavText);
-
-    if (onToggle) {
-      onToggle(hideNavText ? "expanded" : "collapsed");
-    }
-  }
+export default function Sidebar() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div
-      className={classnames(containerClassName, { "lg:w-72": !hideNavText })}
-    >
+    <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
       {/* Sidebar component, swap this element with another sidebar if you like */}
-      <div className="flex h-full grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 py-5 pb-4 sm:py-6">
+      <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-800 px-6 pb-4">
+        <div className="flex h-16 shrink-0 items-center">
+          <img className="h-8 w-auto" src="flakehub.svg" alt="Flake Hub" />
+        </div>
         <nav className="flex flex-1 flex-col">
-          <div className="flex justify-end">
-            <a
-              href="#"
-              className="hidden text-gray-500 hover:bg-gray-50 hover:text-green-600 lg:block"
-              onClick={handleHideNavText}
-            >
-              {hideNavText ? (
-                <ChevronDoubleRightIcon className="h-6 w-6 shrink-0" />
-              ) : (
-                <ChevronDoubleLeftIcon className="h-6 w-6 shrink-0" />
-              )}
-
-              <span className="sr-only">
-                {hideNavText ? "Expand" : "Collapse"}
-              </span>
-            </a>
-          </div>
-          {children}
-
-          <ul className="flex flex-1 flex-col gap-y-7">
+          <ul role="list" className="flex flex-1 flex-col gap-y-7">
             <li>
-              <ul className="-mx-2 space-y-1">
-                {navigation.map((item) => (
-                  <li key={item.name}>
-                    <Tooltip content={item.name}>
-                      <a
-                        href={item.href}
-                        className={classnames(
-                          {
-                            "bg-gray-50 text-green-600": item.current,
-                            "text-gray-700 hover:bg-gray-50 hover:text-green-600":
-                              !item.current,
-                          },
-                          "group flex w-full gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
-                        )}
-                      >
-                        <item.icon
-                          className={classnames(
-                            item.current
-                              ? "text-green-600"
-                              : "text-gray-400 group-hover:text-green-600",
-                            "h-6 w-6 shrink-0",
-                          )}
-                          aria-hidden="true"
-                        />
-                        {!hideNavText && (
-                          <span className="hidden lg:block">{item.name}</span>
-                        )}
-                      </a>
-                    </Tooltip>
+              <div className="text-xs font-semibold leading-6 text-gray-400">
+                Tokens
+              </div>
+              <ul role="list" className="-mx-2 mt-2 space-y-1">
+                {teams.map((team) => (
+                  <li key={team.name}>
+                    <a
+                      href={team.href}
+                      className={classNames(
+                        team.current
+                          ? "bg-gray-800 text-white"
+                          : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                        "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
+                      )}
+                    >
+                      <span className="truncate">{team.name}</span>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -171,12 +96,3 @@ export default function Sidebar({ onToggle, activeTab, groupId }) {
     </div>
   );
 }
-
-Sidebar.propTypes = {
-  activeTab: PropTypes.string,
-  groupId: PropTypes.number,
-};
-
-Sidebar.defaultProps = {
-  activeTab: "groups",
-};
