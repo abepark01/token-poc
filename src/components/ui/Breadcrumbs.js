@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import Link from "next/link";
-import { HomeIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { HomeIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 const homeTextBaseClass =
   "text-sm font-medium text-gray-500 hover:text-gray-700";
