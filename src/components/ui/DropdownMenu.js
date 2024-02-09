@@ -3,6 +3,7 @@ import { Menu, Transition } from "@headlessui/react";
 import {
   ChevronDownIcon,
   EllipsisVerticalIcon,
+  EllipsisHorizontalIcon,
 } from "@heroicons/react/20/solid";
 import { useFloating, autoUpdate } from "@floating-ui/react";
 import classNames from "classnames";
@@ -54,7 +55,7 @@ const DropdownMenuIconButton = forwardRef(function DropdownMenuIconButton(
       )}
     >
       <span className="sr-only">Open options</span>
-      <EllipsisVerticalIcon className="h-5 w-5" aria-hidden="true" />
+      <EllipsisHorizontalIcon className="h-6 w-6" aria-hidden="true" />
     </Menu.Button>
   );
 });

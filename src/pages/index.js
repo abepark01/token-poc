@@ -87,7 +87,9 @@ export default function Home() {
               token.A brief description of the token.
             </DescriptionListItem>
           </PanelSection>
+        </Panel>
 
+        <Panel className="mt-8">
           <PanelSection>
             <h3 className="">Token Permissions</h3>
           </PanelSection>
