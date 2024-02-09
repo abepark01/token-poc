@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import Container from "@/components/ui/container";
+import Container from "@/components/ui/Container";
 import classNames from "classnames";
 
 export default function LayoutWithSidebar({
