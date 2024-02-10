@@ -13,6 +13,7 @@ export default function LayoutWithSidebar({ title, children, breadcrumbs }) {
         <title>{title}</title>
         <meta name="description" content="Flake Hub" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
         <link rel="icon" href="/favicon.png" />
       </Head>
       <div>
